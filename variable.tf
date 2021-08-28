@@ -93,18 +93,6 @@ variable "policy_name" {
   default = "Standard"
 }
 
-/*
-
-variable "mgmt_username" {
-  default = "admin"
-}
-
-variable "mgmt_password" {
-  default = "Omega123456!"
-}
-
-*/
-
 variable "mgmt_name" {
   default = "chkp_mgmt"
 }
