@@ -114,10 +114,6 @@ resource "aws_lb_target_group" "chkp_security_gwlb_tg" {
     protocol = "TCP"
   }
 
-  tags = {
-    Name = "${var.project_name}_security_gwlb_tg"
-  }
-
 }
 
 resource "aws_lb_listener" "chkp_security_gwlb_listener" {
