@@ -55,14 +55,11 @@ resource "aws_route_table" "chkp_security_nat_rt" {
   route {
     cidr_block = var.chkp_web_vpc
     vpc_endpoint_id = element(aws_vpc_endpoint.chkp_security_gwlbe.*.id, count.index)
-    
-    ##gateway_id = aws_internet_gateway.chkp_security_igw.id ##Will need fix this, need to find out whether there is output for gwlbe
   }
 
   route {
     cidr_block = var.chkp_app_vpc
     vpc_endpoint_id = element(aws_vpc_endpoint.chkp_security_gwlbe.*.id, count.index)
-    ##gateway_id = aws_internet_gateway.chkp_security_igw.id ##Will need fix this, need to find out whether there is output for gwlbe
   }
 
   tags = {
@@ -124,7 +121,6 @@ resource "aws_route_table" "chkp_security_tgw_rt" {
   route {
     cidr_block = "0.0.0.0/0"
     vpc_endpoint_id = element(aws_vpc_endpoint.chkp_security_gwlbe.*.id, count.index)
-    ##gateway_id = aws_internet_gateway.chkp_security_igw.id ##Will need fix this, need to point this to GWLBe
   }
 
   tags = {
@@ -165,7 +161,6 @@ resource "aws_route_table" "chkp_web_elb_rt" {
   route {
     cidr_block = "0.0.0.0/0"
     vpc_endpoint_id = element(aws_vpc_endpoint.chkp_web_gwlbe.*.id, count.index)
-    ##gateway_id = aws_internet_gateway.chkp_web_igw.id ##Will need fix this, need to point this to GWLBe
   }
 
   tags = {
@@ -173,39 +168,8 @@ resource "aws_route_table" "chkp_web_elb_rt" {
   }
 }
 
-# resource "aws_route_table" "chkp_web_igw_rt" {
-#   vpc_id = aws_vpc.chkp_web_vpc.id
-
-#   route {
-#     cidr_block = cidrsubnet(var.chkp_web_vpc, 8, 20)
-#     vpc_endpoint_id = aws_vpc_endpoint.chkp_web_gwlbe.0.id
-#     ##gateway_id = aws_internet_gateway.chkp_web_igw.id ##Will need fix this, need to point this to GWLBe
-#   }
-
-#   route {
-#     cidr_block = cidrsubnet(var.chkp_web_vpc, 8, 21)
-#     vpc_endpoint_id = aws_vpc_endpoint.chkp_web_gwlbe.1.id
-#   }
-
-#   route {
-#     cidr_block = cidrsubnet(var.chkp_web_vpc, 8, 22)
-#     vpc_endpoint_id = aws_vpc_endpoint.chkp_web_gwlbe.2.id
-#   }
-
-
-#   tags = {
-#     Name = "${var.project_name}_web_igw_rt"
-#   }
-# }
-
 resource "aws_route_table" "chkp_web_igw_rt" {
-  # count  = length(data.aws_availability_zones.azs.names)
   vpc_id = aws_vpc.chkp_web_vpc.id
-
-  # route {
-  #   cidr_block = cidrsubnet(var.chkp_web_vpc, 8, count.index)
-  #   vpc_endpoint_id = element(aws_vpc_endpoint.chkp_web_gwlbe.*.id, count.index)
-  # }
 
   tags = {
     Name = "${var.project_name}_web_igw_rt"
@@ -247,7 +211,6 @@ resource "aws_route_table" "chkp_app_elb_rt" {
   route {
     cidr_block = "0.0.0.0/0"
     vpc_endpoint_id = element(aws_vpc_endpoint.chkp_app_gwlbe.*.id, count.index)
-    ##gateway_id = aws_internet_gateway.chkp_web_igw.id ##Will need fix this, need to point this to GWLBe
   }
 
   tags = {
@@ -381,16 +344,5 @@ resource "aws_ec2_transit_gateway_route_table" "security_tgw_rt" {
     Name = "${var.project_name}_security_tgw_rt"
   }
 }
-/*
-
-resource "aws_ec2_transit_gateway_route_table" "security_cg_tgw_rt" {
-  transit_gateway_id = aws_ec2_transit_gateway.chkp_tgw.id
-  tags = {
-    Name = "${var.project_name}_security_cg_tgw_rt"
-  }
-}
-
-*/
-
 
 
