@@ -179,7 +179,7 @@ resource "aws_route_table" "chkp_web_igw_rt" {
 resource "aws_route" "chkp_web_igw_rt_route" {
   count                     = length(data.aws_availability_zones.azs.names)
   route_table_id            = aws_route_table.chkp_web_igw_rt.id
-  destination_cidr_block    = cidrsubnet(var.chkp_web_vpc, 8, count.index)
+  destination_cidr_block    = cidrsubnet(var.chkp_web_vpc, 8, count.index + 20)
   vpc_endpoint_id           = element(aws_vpc_endpoint.chkp_web_gwlbe.*.id, count.index)
 }
 

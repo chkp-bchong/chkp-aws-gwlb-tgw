@@ -52,7 +52,7 @@ variable "sic_key" {
 
 variable "cpversion" {
   description = "Check Point Management version"
-  default     = "R80.40"
+  default     = "R81"
 }
 
 variable "cpgwversion" {

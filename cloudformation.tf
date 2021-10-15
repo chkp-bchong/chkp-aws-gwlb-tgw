@@ -22,23 +22,16 @@ echo 'autoprov-cfg -f set template -tn "${var.configurationtemplate_name}" -pp "
 echo 'autoprov-cfg -f set template -tn "${var.configurationtemplate_name}" -ia -ips -appi -av -ab' >> /etc/cloudsetup.sh;
 chmod +x /etc/cloudsetup.sh;
 /etc/cloudsetup.sh > /var/log/cloudsetup.log
-clish -i -c "installer uninstall Check_Point_CPcme_Bundle_R80_40_T83.tgz not-interactive"
-sleep 30
-curl_cli -k https://raw.githubusercontent.com/chkp-bchong/cmeinstallation/main/cmeinstallation.sh > /etc/cme_installation.sh
-chmod +x /etc/cme_installation.sh
-/etc/cme_installation.sh > /var/log/cmeinstallation.log
 BOOTSTRAP
   }
 
-/*
-####backup test command lines
-clish -i -c "installer uninstall Check_Point_CPcme_Bundle_R80_40_T83.tgz not-interactive"
-sleep 30
-curl_cli -k https://raw.githubusercontent.com/chkp-bchong/cmeinstallation/main/cmeinstallation.sh > /etc/cme_installation.sh
-chmod +x /etc/cme_installation.sh
-/etc/cme_installation.sh
-####
-*/
+### Backup Bootstrap
+# clish -i -c "installer uninstall Check_Point_CPcme_Bundle_R80_40_T83.tgz not-interactive"
+# sleep 30
+# curl_cli -k https://raw.githubusercontent.com/chkp-bchong/cmeinstallation/main/cmeinstallation.sh > /etc/cme_installation.sh
+# chmod +x /etc/cme_installation.sh
+# /etc/cme_installation.sh > /var/log/cmeinstallation.log
+###
 
   template_url       = "https://cgi-cfts.s3.amazonaws.com/management/management.yaml"
   capabilities       = ["CAPABILITY_IAM"]
